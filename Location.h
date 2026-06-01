@@ -21,6 +21,9 @@ public:
     void addArtLine(const std::string& line);
     std::vector<std::string> getArt() const;
 
+    void addChestId(int chestId);
+    std::vector<int> getChestIds() const;
+
 private:
     int id;
     std::string name;
@@ -28,6 +31,7 @@ private:
     bool open;
     std::vector<int> connections;
     std::vector<std::string> art;
+    std::vector<int> chestIds;
 };
 
 #endif

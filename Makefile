@@ -2,7 +2,7 @@ CXX = g++
 CXXFLAGS = -std=c++17 -Wall -Wextra
 TARGET = quest_game
 
-SOURCES = main.cpp Game.cpp Player.cpp Location.cpp
+SOURCES = main.cpp Game.cpp Player.cpp Location.cpp Potion.cpp Chest.cpp
 OBJECTS = $(SOURCES:.cpp=.o)
 
 all: $(TARGET)

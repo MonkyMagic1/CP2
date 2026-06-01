@@ -61,3 +61,12 @@ std::vector<std::string> Location::getArt() const
     return art;
 }
 
+void Location::addChestId(int chestId)
+{
+    chestIds.push_back(chestId);
+}
+
+std::vector<int> Location::getChestIds() const
+{
+    return chestIds;
+}
