@@ -42,3 +42,12 @@ bool Player::isAlive() const
     return health > 0;
 }
 
+void Player::addPotionId(int potionId)
+{
+    potionIds.push_back(potionId);
+}
+
+std::vector<int> Player::getPotionIds() const
+{
+    return potionIds;
+}

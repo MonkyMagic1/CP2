@@ -6,6 +6,7 @@
 #include "Potion.h"
 #include "Chest.h"
 #include <vector>
+#include <string>
 
 class Game {
 public:
@@ -16,11 +17,18 @@ private:
     std::vector<Location> locations;
     std::vector<Potion> potions;
     std::vector<Chest> chests;
+    std::string getPotionInfoById(int potionId) const;
 
     void showMainMenu() const;
     void startNewGame();
     void createLocations();
     void showCurrentLocation() const;
+    void gameLoop();
+    void showActions() const;
+    void handleCommand(int command);
+    void openChest();
+    void showInventory() const;
+    void printSeparator() const;
 };
 
 #endif
