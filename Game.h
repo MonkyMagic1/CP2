@@ -18,6 +18,7 @@ private:
     std::vector<Potion> potions;
     std::vector<Chest> chests;
     std::string getPotionInfoById(int potionId) const;
+    bool gameWon;
 
     void showMainMenu() const;
     void startNewGame();
@@ -28,7 +29,14 @@ private:
     void handleCommand(int command);
     void openChest();
     void showInventory() const;
+    void drinkPotion();
+    void moveToLocation();
+    Location* findLocationById(int locationId);
+    bool solveLocationPuzzle(int locationId);
+    void showConnections(const Location& location) const;
     void printSeparator() const;
+    void printBigSeparator() const;
+    
 };
 
 #endif

@@ -47,6 +47,18 @@ void Player::addPotionId(int potionId)
     potionIds.push_back(potionId);
 }
 
+bool Player::removePotionId(int potionId)
+{
+    for (std::vector<int>::iterator it = potionIds.begin(); it != potionIds.end(); ++it) {
+        if (*it == potionId) {
+            potionIds.erase(it);
+            return true;
+        }
+    }
+
+    return false;
+}
+
 std::vector<int> Player::getPotionIds() const
 {
     return potionIds;

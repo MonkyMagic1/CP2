@@ -15,6 +15,7 @@ public:
     void heal(int amount);
 
     void addPotionId(int potionId);
+    bool removePotionId(int potionId);
     std::vector<int> getPotionIds() const;
 
     bool isAlive() const;
