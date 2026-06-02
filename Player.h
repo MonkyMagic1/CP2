@@ -8,6 +8,7 @@ public:
     Player();
 
     int getHealth() const;
+    void setHealth(int health);
     int getCurrentLocationId() const;
 
     void setCurrentLocationId(int locationId);
@@ -16,6 +17,7 @@ public:
 
     void addPotionId(int potionId);
     bool removePotionId(int potionId);
+    void clearPotions();
     std::vector<int> getPotionIds() const;
 
     bool isAlive() const;

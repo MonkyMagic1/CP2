@@ -1,12 +1,12 @@
 #include "Game.h"
 
 #include <iostream>
+#include <fstream>
 
 void Game::run()
 {
     std::cout << "Quest Game" << std::endl;
-    showMainMenu();
-    startNewGame();
+    handleMainMenu();
 }
 
 void Game::startNewGame()
@@ -14,6 +14,129 @@ void Game::startNewGame()
     gameWon = false;
     createLocations();
     gameLoop();
+}
+
+void Game::handleMainMenu()
+{
+    int command;
+
+    showMainMenu();
+
+    std::cout << "Choose option: ";
+    std::cin >> command;
+
+    if (command == 1) {
+        startNewGame();
+    } else if (command == 2) {
+        loadGame();
+        gameLoop();
+    } else if (command == 0) {
+        std::cout << "Goodbye." << std::endl;
+    } else {
+        std::cout << "Unknown option." << std::endl;
+    }
+}
+
+void Game::saveGame() const
+{
+    std::ofstream saveFile("save.txt");
+
+    if (!saveFile) {
+        std::cout << "Could not create save file." << std::endl;
+        return;
+    }
+
+    saveFile << player.getCurrentLocationId() << std::endl;
+    saveFile << player.getHealth() << std::endl;
+
+    std::vector<int> potionIds = player.getPotionIds();
+    saveFile << potionIds.size() << std::endl;
+
+    for (int potionId : potionIds) {
+        saveFile << potionId << " ";
+    }
+
+    saveFile << std::endl;
+
+    saveFile << locations.size() << std::endl;
+
+    for (const Location& location : locations) {
+        saveFile << location.getId() << " " << location.isOpen() << std::endl;
+    }
+
+    saveFile << chests.size() << std::endl;
+
+    for (const Chest& chest : chests) {
+        saveFile << chest.getId() << " " << chest.isOpened() << std::endl;
+    }
+    std::cout << "Game saved." << std::endl;
+}
+
+void Game::loadGame()
+{
+    std::ifstream saveFile("save.txt");
+
+    if (!saveFile) {
+        std::cout << "Save file was not found. Started a new game instead." << std::endl;
+        gameWon = false;
+        createLocations();
+        return;
+    }
+
+    int currentLocationId;
+    int health;
+    int potionCount;
+
+    saveFile >> currentLocationId;
+    saveFile >> health;
+    saveFile >> potionCount;
+
+    gameWon = false;
+    createLocations();
+
+    player.setCurrentLocationId(currentLocationId);
+    player.setHealth(health);
+    player.clearPotions();
+
+    for (int i = 0; i < potionCount; ++i) {
+        int potionId;
+        saveFile >> potionId;
+        player.addPotionId(potionId);
+    }
+
+    int locationCount;
+    saveFile >> locationCount;
+
+    for (int i = 0; i < locationCount; ++i) {
+        int locationId;
+        bool isOpen;
+
+        saveFile >> locationId >> isOpen;
+
+        Location* location = findLocationById(locationId);
+
+        if (location != nullptr && isOpen) {
+            location->openLocation();
+        }
+    }
+
+    int chestCount;
+    saveFile >> chestCount;
+
+    for (int i = 0; i < chestCount; ++i) {
+        int chestId;
+        bool isOpened;
+
+        saveFile >> chestId >> isOpened;
+
+        for (Chest& chest : chests) {
+            if (chest.getId() == chestId && isOpened) {
+                chest.openChest();
+            }
+        }
+    }
+
+    std::cout << "Game loaded." << std::endl;
 }
 
 void Game::createLocations()
@@ -259,6 +382,7 @@ void Game::showActions() const
     std::cout << "2. Show inventory" << std::endl;
     std::cout << "3. Move" << std::endl;
     std::cout << "4. Drink potion" << std::endl;
+    std::cout << "5. Save game" << std::endl;
     std::cout << "0. Quit" << std::endl;
 }
 
@@ -272,6 +396,8 @@ void Game::handleCommand(int command)
         moveToLocation();
     } else if (command == 4) {
         drinkPotion();
+    } else if (command == 5) {
+        saveGame();
     } else if (command == 0) {
         std::cout << "You leave the maze." << std::endl;
     } else {

@@ -21,6 +21,7 @@ private:
     bool gameWon;
 
     void showMainMenu() const;
+    void handleMainMenu();
     void startNewGame();
     void createLocations();
     void showCurrentLocation() const;
@@ -30,6 +31,8 @@ private:
     void openChest();
     void showInventory() const;
     void drinkPotion();
+    void saveGame() const;
+    void loadGame();
     void moveToLocation();
     Location* findLocationById(int locationId);
     bool solveLocationPuzzle(int locationId);

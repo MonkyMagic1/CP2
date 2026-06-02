@@ -11,6 +11,19 @@ int Player::getHealth() const
     return health;
 }
 
+void Player::setHealth(int health)
+{
+    this->health = health;
+
+    if (this->health < 0) {
+        this->health = 0;
+    }
+
+    if (this->health > 100) {
+        this->health = 100;
+    }
+}
+
 int Player::getCurrentLocationId() const
 {
     return currentLocationId;
@@ -57,6 +70,11 @@ bool Player::removePotionId(int potionId)
     }
 
     return false;
+}
+
+void Player::clearPotions()
+{
+    potionIds.clear();
 }
 
 std::vector<int> Player::getPotionIds() const
