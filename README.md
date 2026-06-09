@@ -38,7 +38,7 @@ Quest Game - это консольная текстовая игра-квест 
 - `Makefile` - файл для сборки проекта;
 - `README.md` - описание проекта.
 
-## Сборка
+## Сборка для Windows
 
 Для сборки используется `Makefile` и компилятор `g++`.
 
@@ -50,9 +50,35 @@ mingw32-make all
 
 mingw32-make clean
 
-## Запуск
+Запуск:
 
 .\quest_game.exe
+
+## Сборка для Linux
+
+Собрать проект:
+
+make all
+
+Очистить файлы сборки:
+
+make clean
+
+Запуск:
+
+./quest_game
+
+## Документация
+
+Документация по классам находится в папке `docs`:
+
+- [Game](docs/Game.md)
+- [Player](docs/Player.md)
+- [Location](docs/Location.md)
+- [Chest](docs/Chest.md)
+- [Potion](docs/Potion.md)
+
+В документации описаны назначение классов, их поля, методы и входные данные методов.
 
 ## Управление
 
